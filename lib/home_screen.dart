@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:pdf_generate/PDF/create_invoice.dart';
 import 'package:pdf_generate/view_pdf_screen.dart';
@@ -19,7 +20,15 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () async=>await createInvoice() ,
+              onPressed: () async {
+                final pdf = await createInvoice();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ViewPDFScreen(pdf: pdf),
+                  ),
+                );
+              },
               child: const Text("ViewPDF"),
             ),
           ],
